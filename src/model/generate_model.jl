@@ -353,7 +353,10 @@ function operation_model!(EP::Model, setup::Dict, inputs::Dict)
     end
 
     # Policies
-
+    # Energy trading with markets
+    if setup["Markets"] == 1
+        markets!(EP, inputs, setup)
+    end
     if setup["OperationalReserves"] > 0
         operational_reserves_constraints!(EP, inputs)
     end
