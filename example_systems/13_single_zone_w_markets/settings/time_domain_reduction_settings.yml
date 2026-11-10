@@ -80,6 +80,13 @@ WeightTotal: 8760
   #   number of timesteps in the raw input data.
 ClusterFuelPrices: 1
 
+  #   - ClusterMarketPrices
+  #   Either 1 (yes) or 0 (no), only used if Markets = 1 in genx_settings.yml. This indicates whether
+  #   or not to use the market buy and sell price time series of the market zones in Market_price.csv
+  #   in the clustering process. In both cases, Market_price.csv and Market_emissions.csv are written
+  #   to the TimeDomainReductionFolder for the selected representative periods.
+ClusterMarketPrices: 1
+
   #   - UseExtremePeriods
   #   Either 'yes' or 'no', this designates whether or not to include
   #   outliers (by performance or demand/resource extreme) as their own representative periods.
