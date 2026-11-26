@@ -85,7 +85,7 @@ function curtailable_variable_renewable!(EP::Model, inputs::Dict, setup::Dict)
     # ePowerBalanceDisp is [1:T, 1:Z].
     add_similar_to_expression!(EP[:eGenerationByZone], permutedims(ePowerBalanceDisp))
     #### Add it to total generation by zone
-    add_similar_to_expression!(EP[:eTotalGenerationByZone], permutedims(ePowerBalanceDisp))
+    add_similar_to_expression!(EP[:eMaxMarketExportByZone], permutedims(ePowerBalanceDisp))
 end
 
 @doc raw"""

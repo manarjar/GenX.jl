@@ -218,8 +218,9 @@ function operation_model!(EP::Model, setup::Dict, inputs::Dict)
     # Energy losses related to technologies
     create_empty_expression!(EP, :eELOSSByZone, Z)
 
-    # Total Generation from all resources
-    create_empty_expression!(EP, :eTotalGenerationByZone, (Z, T))
+    # Electricity supplied by resources in each zone, used to limit market sales
+    # (storage and VRE-STOR contribute discharge only, not net of charging)
+    create_empty_expression!(EP, :eMaxMarketExportByZone, (Z, T))
 
     # Total CO2 emissions by zone (fuel burning emissions + market emissions)
     create_empty_expression!(EP, :eTotalEmissionsByZone, (Z, T))

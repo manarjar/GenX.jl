@@ -55,5 +55,5 @@ function must_run!(EP::Model, inputs::Dict, setup::Dict)
         sum(EP[:vP][y, t] for y in MUST_RUN_BY_ZONE[z]))
     add_similar_to_expression!(EP[:eGenerationByZone], eGenerationByMustRun)
 
-    add_similar_to_expression!(EP[:eTotalGenerationByZone], eGenerationByMustRun)
+    add_similar_to_expression!(EP[:eMaxMarketExportByZone], eGenerationByMustRun)
 end

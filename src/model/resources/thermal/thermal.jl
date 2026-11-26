@@ -32,7 +32,7 @@ function thermal!(EP::Model, inputs::Dict, setup::Dict)
         for y in THERM_ALL_BY_ZONE[z]))
     add_similar_to_expression!(EP[:eGenerationByZone], eGenerationByThermAll)
 
-    add_similar_to_expression!(EP[:eTotalGenerationByZone], eGenerationByThermAll)
+    add_similar_to_expression!(EP[:eMaxMarketExportByZone], eGenerationByThermAll)
 
     # Capacity Reserves Margin policy
     if setup["CapacityReserveMargin"] > 0

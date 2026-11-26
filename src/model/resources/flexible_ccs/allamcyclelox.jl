@@ -137,7 +137,11 @@ function allamcyclelox!(EP::Model, inputs::Dict, setup::Dict)
         for y in intersect(ALLAM_CYCLE_LOX, resources_in_zone_by_rid(gen, z))))
     add_similar_to_expression!(EP[:ePowerBalance], ePowerBalanceAllam)
 
-    add_similar_to_expression!(EP[:eTotalGenerationByZone], permutedims(ePowerBalanceAllam))
+    # Only net output counts toward market supply (not net of grid charging for the ASU),
+    # so the ASU can be powered with market purchases
+    for z in 1:Z, y in intersect(ALLAM_CYCLE_LOX, resources_in_zone_by_rid(gen, z)), t in 1:T
+        add_to_expression!(EP[:eMaxMarketExportByZone][z, t], eP_Allam[y, t])
+    end
     
     # Constraint 3: all the allam cycle output should be less than the capacity
     @constraint(EP, [y in ALLAM_CYCLE_LOX, i in 1:3, t in 1:T], vOutput_AllamcycleLOX[y, i, t] <= EP[:eTotalCap_AllamcycleLOX][y,i])

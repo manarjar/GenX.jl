@@ -103,7 +103,10 @@ function storage_all!(EP::Model, inputs::Dict, setup::Dict)
         for y in STOR_ALL_BY_ZONE[z]))
     add_similar_to_expression!(EP[:ePowerBalance], ePowerBalanceStor)
 
-    add_similar_to_expression!(EP[:eTotalGenerationByZone], permutedims(ePowerBalanceStor))
+    # Only discharge counts toward market supply, so storage can be charged with market purchases
+    for z in 1:Z, y in STOR_ALL_BY_ZONE[z], t in 1:T
+        add_to_expression!(EP[:eMaxMarketExportByZone][z, t], vP[y, t])
+    end
 
     ### Constraints ###
 

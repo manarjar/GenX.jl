@@ -192,7 +192,11 @@ function vre_stor!(EP::Model, inputs::Dict, setup::Dict)
 
     # Power Balance
     add_similar_to_expression!(EP[:ePowerBalance], ePowerBalance_VRE_STOR)
-    add_similar_to_expression!(EP[:eTotalGenerationByZone], permutedims(ePowerBalance_VRE_STOR))
+    # Only grid injections count toward market supply,
+    # so the storage component can be charged with market purchases
+    for z in 1:Z, y in gen_VRE_STOR_BY_ZONE[z], t in 1:T
+        add_to_expression!(EP[:eMaxMarketExportByZone][z, t], EP[:vP][y, t])
+    end
 
 
     ### CONSTRAINTS ###

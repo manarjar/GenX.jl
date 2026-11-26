@@ -187,7 +187,7 @@ function hydro_res!(EP::Model, inputs::Dict, setup::Dict)
     add_similar_to_expression!(EP[:eGenerationByZone], eGenerationByHydroRes)
 
      # Add generation to total genenration by zone
-    add_similar_to_expression!(EP[:eTotalGenerationByZone], eGenerationByHydroRes)
+    add_similar_to_expression!(EP[:eMaxMarketExportByZone], eGenerationByHydroRes)
 end
 
 @doc raw"""
